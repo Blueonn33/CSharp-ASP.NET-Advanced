@@ -1,4 +1,4 @@
-namespace AutoMapperDemo.Models
+namespace AutoMapperDemo.ViewModels
 {
     public class ErrorViewModel
     {
