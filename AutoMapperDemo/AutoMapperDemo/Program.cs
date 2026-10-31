@@ -1,3 +1,6 @@
+using AutoMapperDemo.Services;
+using AutoMapperDemo.Services.Contracts;
+
 namespace AutoMapperDemo
 {
     public class Program
@@ -7,6 +10,11 @@ namespace AutoMapperDemo
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddAutoMapper(cfg =>
+            {
+            }, typeof(AutoMapperDemoProfile));
+
+            builder.Services.AddScoped<IVehicleService, VehicleService>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
