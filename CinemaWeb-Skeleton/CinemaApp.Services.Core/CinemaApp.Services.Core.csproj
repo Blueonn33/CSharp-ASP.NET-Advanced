@@ -16,6 +16,7 @@
     <ProjectReference Include="..\CinemaApp.GCommon\CinemaApp.GCommon.csproj" />
     <ProjectReference Include="..\CinemaApp.Services.AutoMapping\CinemaApp.Services.AutoMapping.csproj" />
     <ProjectReference Include="..\CinemaApp.Services.Common\CinemaApp.Services.Common.csproj" />
+    <ProjectReference Include="..\CinemaApp.Services.Core.Data\CinemaApp.Services.Core.Data.csproj" />
     <ProjectReference Include="..\CinemaApp.Web.ViewModels\CinemaApp.Web.ViewModels.csproj" />
   </ItemGroup>
 
