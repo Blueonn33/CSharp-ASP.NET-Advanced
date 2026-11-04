@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 namespace CinemaApp.Web
 {
     using CinemaApp.Data;
@@ -10,12 +11,15 @@ namespace CinemaApp.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("SqlServerConnection") ?? throw new InvalidOperationException("Connection string was not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+                {
+                    ConfigureIdentityOptions(builder.Configuration, options);
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
@@ -38,6 +42,7 @@ namespace CinemaApp.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -46,6 +51,28 @@ namespace CinemaApp.Web
             app.MapRazorPages();
 
             app.Run();
+        }
+
+        private static void ConfigureIdentityOptions(ConfigurationManager configuration, IdentityOptions options)
+        {
+            options.SignIn.RequireConfirmedAccount =
+                configuration.GetValue<bool>("IdentitySettings:SignIn:RequireConfirmedAccount");
+
+            options.Password.RequireDigit =
+                configuration.GetValue<bool>("IdentitySettings:Password:RequireDigit");
+            options.Password.RequiredLength =
+                configuration.GetValue<int>("IdentitySettings:Password:RequiredLength");
+            options.Password.RequireUppercase =
+                configuration.GetValue<bool>("IdentitySettings:Password:RequireUppercase");
+            options.Password.RequireLowercase =
+                configuration.GetValue<bool>("IdentitySettings:Password:RequireLowercase");
+            options.Password.RequireNonAlphanumeric =
+                configuration.GetValue<bool>("IdentitySettings:Password:RequireNonAlphanumeric");
+            options.Password.RequiredUniqueChars =
+                configuration.GetValue<int>("IdentitySettings:Password:RequiredUniqueChars");
+
+            options.User.RequireUniqueEmail =
+                configuration.GetValue<bool>("IdentitySettings:User:RequireUniqueEmail");
         }
     }
 }
