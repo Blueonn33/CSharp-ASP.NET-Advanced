@@ -17,10 +17,272 @@ namespace CinemaApp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.16")
+                .HasAnnotation("ProductVersion", "8.0.33")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CinemaApp.Data.Models.Movie", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Director")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("smalldatetime");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("4571bf2f-dbb3-446c-a92a-07cb77f47ed0"),
+                            Description = "A skilled thief is given a chance at redemption if he can successfully perform an inception on a target's mind.",
+                            Director = "Christopher Nolan",
+                            Duration = 148,
+                            Genre = "Sci-Fi",
+                            ImageUrl = "https://cdn.shopify.com/s/files/1/0057/3728/3618/files/inception.mpw.123395_9e0000d1-bc7f-400a-b488-15fa9e60a10c_500x749.jpg?v=1708527589",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2010, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Inception"
+                        },
+                        new
+                        {
+                            Id = new Guid("e673a37c-8ffc-46bf-a66d-18b8078d7c94"),
+                            Description = "The aging patriarch of an organized crime dynasty transfers control to his reluctant son.",
+                            Director = "Francis Ford Coppola",
+                            Duration = 175,
+                            Genre = "Crime",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/products/b5282f72126e4919911509e034a61f66_6ce2486d-e0da-4b7a-9148-722cdde610b8_480x.progressive.jpg?v=1573616025",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1972, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Godfather"
+                        },
+                        new
+                        {
+                            Id = new Guid("2f22c0dd-f7b9-46c3-a753-0d076dafb489"),
+                            Description = "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+                            Director = "Christopher Nolan",
+                            Duration = 169,
+                            Genre = "Adventure",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/interstellar-139399_480x.progressive.jpg?v=1708527823",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2014, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Interstellar"
+                        },
+                        new
+                        {
+                            Id = new Guid("eb13b5e6-b8fd-4e11-99ef-446e9e752558"),
+                            Description = "Batman faces the Joker, a criminal mastermind bent on causing chaos in Gotham City.",
+                            Director = "Christopher Nolan",
+                            Duration = 152,
+                            Genre = "Action",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/darkknight.building.24x36_20e90057-f673-4cc3-9ce7-7b0d3eeb7d83_480x.progressive.jpg?v=1707491191",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2008, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Dark Knight"
+                        },
+                        new
+                        {
+                            Id = new Guid("94e73f37-e260-4c6f-930b-8bd65c9c8a11"),
+                            Description = "The lives of two mob hitmen, a boxer, and others intertwine in a series of unexpected incidents.",
+                            Director = "Quentin Tarantino",
+                            Duration = 154,
+                            Genre = "Crime",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/products/pulpfiction.2436_480x.progressive.jpg?v=1620048742",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1994, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Pulp Fiction"
+                        },
+                        new
+                        {
+                            Id = new Guid("96fcb0c2-807e-4f7d-a28b-14ba6f9cb9b4"),
+                            Description = "A computer hacker learns the shocking truth about the reality he lives in and joins a rebellion.",
+                            Director = "The Wachowskis",
+                            Duration = 136,
+                            Genre = "Sci-Fi",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/Matrix.mpw.102176_bb2f6cc5-4a16-4512-881b-f855ead3c8ec_480x.progressive.jpg?v=1708703624",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1999, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Matrix"
+                        },
+                        new
+                        {
+                            Id = new Guid("75fb6394-ab90-4b78-9802-7ff3c9afdbc0"),
+                            Description = "A businessman saves the lives of hundreds of Jews during the Holocaust by employing them in his factories.",
+                            Director = "Steven Spielberg",
+                            Duration = 195,
+                            Genre = "Drama",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/products/9a1f9ea4a27071481cc1263e3ea11f7b_7bdb2deb-dd50-41b5-beab-8fc1cb3c895d_480x.progressive.jpg?v=1573651233",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1993, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Schindler's List"
+                        },
+                        new
+                        {
+                            Id = new Guid("8c5904a9-bfab-4b0f-b12b-b5fc795e6231"),
+                            Description = "The story of Forrest Gump, a man with a low IQ, whose kind heart shapes the lives of those around him.",
+                            Director = "Robert Zemeckis",
+                            Duration = 142,
+                            Genre = "Drama",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/products/forrest-gump---24x36_480x.progressive.jpg?v=1645558337",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1994, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Forrest Gump"
+                        },
+                        new
+                        {
+                            Id = new Guid("f1342f7d-ff72-4bfb-8a36-8368dec7b088"),
+                            Description = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of decency.",
+                            Director = "Frank Darabont",
+                            Duration = 142,
+                            Genre = "Drama",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/shawshank_eb84716b-efa9-44dc-a19d-c17924a3f7df_480x.progressive.jpg?v=1709821984",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Shawshank Redemption"
+                        },
+                        new
+                        {
+                            Id = new Guid("c994999b-02dd-46c2-abc4-00c4787e629f"),
+                            Description = "A paraplegic Marine dispatched to the moon Pandora becomes torn between following orders and protecting his home.",
+                            Director = "James Cameron",
+                            Duration = 162,
+                            Genre = "Sci-Fi",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/avatar.adv.24x36_480x.progressive.jpg?v=1707410703",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2009, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Avatar"
+                        },
+                        new
+                        {
+                            Id = new Guid("4b760743-8d49-48d5-bca6-15f5236e3f7b"),
+                            Description = "A betrayed Roman general seeks revenge against the corrupt emperor who murdered his family and sent him into slavery.",
+                            Director = "Ridley Scott",
+                            Duration = 155,
+                            Genre = "Action",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/Gladiator.mpw.102813_480x.progressive.jpg?v=1707500493",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2000, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Gladiator"
+                        },
+                        new
+                        {
+                            Id = new Guid("9912f515-b2aa-4d19-9d2f-c2c94cb1212e"),
+                            Description = "Earth's mightiest heroes must come together to stop a mischievous Loki and his alien army.",
+                            Director = "Joss Whedon",
+                            Duration = 143,
+                            Genre = "Action",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/avengers.24x36_480x.progressive.jpg?v=1707410714",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2012, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Avengers"
+                        },
+                        new
+                        {
+                            Id = new Guid("e0d85412-0717-4648-a972-f393a6aafaa8"),
+                            Description = "A lion prince flees his kingdom after the death of his father, only to learn the true meaning of responsibility and bravery.",
+                            Director = "Roger Allers, Rob Minkoff",
+                            Duration = 88,
+                            Genre = "Animation",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/the-lion-king_273b54a5_480x.progressive.jpg?v=1725905168",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1994, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Lion King"
+                        },
+                        new
+                        {
+                            Id = new Guid("bec8f441-5b73-4f11-87b8-a47fbc1d140f"),
+                            Description = "During a preview tour, a theme park suffers a major power breakdown that allows its cloned dinosaur exhibits to run amok.",
+                            Director = "Steven Spielberg",
+                            Duration = 127,
+                            Genre = "Adventure",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/jurassicpark.mpw_480x.progressive.jpg?v=1713805481",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1993, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Jurassic Park"
+                        },
+                        new
+                        {
+                            Id = new Guid("3fcdb107-dc27-45a0-8514-e2b40714100e"),
+                            Description = "A young FBI trainee seeks the help of an imprisoned cannibalistic serial killer to catch another serial killer.",
+                            Director = "Jonathan Demme",
+                            Duration = 118,
+                            Genre = "Thriller",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/silencelambs.C.17449.mpw_480x.progressive.jpg?v=1727097024",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1991, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Silence of the Lambs"
+                        },
+                        new
+                        {
+                            Id = new Guid("7dd82b97-1eb2-4c37-9c3d-e26dd84878a0"),
+                            Description = "The lives of guards on Death Row are affected by one of their charges, a black man accused of child murder and rape, yet who has a mysterious gift.",
+                            Director = "Frank Darabont",
+                            Duration = 189,
+                            Genre = "Drama",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/products/033152cb8ba4518411a359686f4a194e_e51d49fa-d8b2-4aaf-82dd-9779f297352c_480x.progressive.jpg?v=1573585373",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1999, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Green Mile"
+                        },
+                        new
+                        {
+                            Id = new Guid("25163666-81d7-4829-9931-b6bd44eb2b23"),
+                            Description = "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much more.",
+                            Director = "David Fincher",
+                            Duration = 139,
+                            Genre = "Drama",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/files/FightClub.mpw.125100_480x.progressive.jpg?v=1707497058",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(1999, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Fight Club"
+                        },
+                        new
+                        {
+                            Id = new Guid("b0c21023-aa37-49cb-ad91-3ba005d8550d"),
+                            Description = "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.",
+                            Director = "Quentin Tarantino",
+                            Duration = 165,
+                            Genre = "Western",
+                            ImageUrl = "https://www.movieposters.com/cdn/shop/products/ff35c38cb67f47a5f4cbec6c92a5d5a8_acb37f4c-8110-4bc9-b597-01e75e565a60_480x.progressive.jpg?v=1573587558",
+                            IsDeleted = false,
+                            ReleaseDate = new DateTime(2012, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Django Unchained"
+                        });
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
