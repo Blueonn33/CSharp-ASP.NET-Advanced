@@ -1,11 +1,14 @@
-﻿namespace CinemaApp.Services.Core.Data.Movie.Response
+﻿using CinemaApp.Services.Core.Data.Movie.Enums;
+
+namespace CinemaApp.Services.Core.Data.Movie.Response
 {
     public class MovieServiceStatusResponseModel
     {
-        public bool Status
+        public MovieServiceResponseStatus Status
         {
             get; set;
         }
+
         public IEnumerable<string?> ErrorMessages { get; set; } = new List<string?>();
     }
 }
