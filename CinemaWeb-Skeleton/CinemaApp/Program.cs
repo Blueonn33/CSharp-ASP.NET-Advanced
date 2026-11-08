@@ -18,7 +18,9 @@ namespace CinemaApp.Web
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+            // Implement automatic Service Discovery with Reflection
             builder.Services.AddScoped<IMovieService, MovieService>();
+            builder.Services.AddScoped<IWatchlistService, WatchlistService>();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options =>
                 {
