@@ -1,5 +1,6 @@
 using CinemaApp.Services.Core;
 using CinemaApp.Services.Core.Contracts;
+using CinemaApp.Web.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 namespace CinemaApp.Web
 {
@@ -18,7 +19,9 @@ namespace CinemaApp.Web
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            // Implement automatic Service Discovery with Reflection
+            builder.Services.RegisterRepositoriesFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            // TODO: Implement automatic Service Discovery with Reflection
             builder.Services.AddScoped<IMovieService, MovieService>();
             builder.Services.AddScoped<IWatchlistService, WatchlistService>();
 
