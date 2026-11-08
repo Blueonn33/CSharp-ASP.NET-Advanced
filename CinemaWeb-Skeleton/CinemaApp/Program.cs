@@ -1,6 +1,7 @@
 using CinemaApp.Services.Core;
 using CinemaApp.Services.Core.Contracts;
 using CinemaApp.Web.Infrastructure.Extensions;
+using CinemaApp.Web.Infrastructure.Filters;
 using Microsoft.EntityFrameworkCore;
 namespace CinemaApp.Web
 {
@@ -24,6 +25,8 @@ namespace CinemaApp.Web
             // TODO: Implement automatic Service Discovery with Reflection
             builder.Services.AddScoped<IMovieService, MovieService>();
             builder.Services.AddScoped<IWatchlistService, WatchlistService>();
+
+            builder.Services.AddScoped<PhoneRequiredActionFilter>();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options =>
                 {
