@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CinemaApp.Data.Common.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static CinemaApp.Data.Common.EntityValidation.Movie;
 
 namespace CinemaApp.Data.Models
 {
-    public class Movie
+    public class Movie : ISoftDeletableEntity
     {
         [Key]
         public Guid Id
