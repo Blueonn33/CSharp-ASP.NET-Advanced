@@ -1,5 +1,5 @@
-﻿using CinemaApp.Data;
-using CinemaApp.Data.Models;
+﻿using CinemaApp.Data.Models;
+using CinemaApp.Data.Repository.Contracts;
 using CinemaApp.Services.Common.Utilities;
 using CinemaApp.Services.Core.Contracts;
 using CinemaApp.Services.Core.Data.Movie.Enums;
@@ -12,13 +12,14 @@ namespace CinemaApp.Services.Core
 {
     public class MovieService : IMovieService
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
+        private readonly IMovieRepository _movieRepository;
         private readonly BasicModelValidator _modelValidator;
         private readonly ILogger<MovieService> _logger;
 
-        public MovieService(ApplicationDbContext context, ILogger<MovieService> logger)
+        public MovieService(IMovieRepository movieRepository, ILogger<MovieService> logger)
         {
-            _context = context;
+            _movieRepository = movieRepository;
             _modelValidator = new BasicModelValidator();
             _logger = logger;
         }
@@ -50,8 +51,8 @@ namespace CinemaApp.Services.Core
 
                 try
                 {
-                    await _context.Movies.AddAsync(movie);
-                    await _context.SaveChangesAsync();
+                    await _movieRepository.AddAsync(movie);
+                    await _movieRepository.SaveChangesAsync();
 
                     response.Status = MovieServiceResponseStatus.Success;
                 }
@@ -70,8 +71,8 @@ namespace CinemaApp.Services.Core
         {
             MovieExtendedDataResponseModel? responseData = null;
 
-            Movie? dbMovie = await _context.Movies
-                .FindAsync(id);
+            Movie? dbMovie = await _movieRepository
+                .FindByIdAsync(id);
 
             if (dbMovie != null)
             {
@@ -94,7 +95,8 @@ namespace CinemaApp.Services.Core
         public async Task<IEnumerable<GetAllMoviesResponseModel>> GetAllMoviesAsync()
         {
             // TODO: Implement Mapperly for auto generation of mapping code
-            IEnumerable<GetAllMoviesResponseModel> moviesResponseDate = await _context.Movies
+            IEnumerable<GetAllMoviesResponseModel> moviesResponseDate = await _movieRepository
+                .AllAsNoTracking()
                 .OrderBy(m => m.Title)
                 .ThenBy(m => m.Genre)
                 .Select(m => new GetAllMoviesResponseModel()
@@ -119,8 +121,8 @@ namespace CinemaApp.Services.Core
                 ErrorMessages = new List<string?>()
             };
 
-            Movie? dbMovie = await _context.Movies
-                .FindAsync(requestData.Id);
+            Movie? dbMovie = await _movieRepository
+                .FindByIdAsync(requestData.Id);
 
             if (dbMovie == null)
             {
@@ -148,7 +150,7 @@ namespace CinemaApp.Services.Core
                     dbMovie.ReleaseDate = requestData.ReleaseDate;
                     dbMovie.Duration = requestData.Duration;
 
-                    await _context.SaveChangesAsync();
+                    await _movieRepository.SaveChangesAsync();
 
                     responseData.Status = MovieServiceResponseStatus.Success;
                 }
@@ -166,8 +168,8 @@ namespace CinemaApp.Services.Core
         public async Task<MovieBasicDataResponseModel?> GetMovieBasicDataByIdAsync(Guid id)
         {
             MovieBasicDataResponseModel? responseData = null;
-            Movie? dbMovie = await _context.Movies
-                .FindAsync(id);
+            Movie? dbMovie = await _movieRepository
+                .FindByIdAsync(id);
 
             if (dbMovie != null)
             {
@@ -191,7 +193,8 @@ namespace CinemaApp.Services.Core
                 ErrorMessages = new List<string?>()
             };
 
-            Movie? dbMovie = await _context.Movies.FindAsync(id);
+            Movie? dbMovie = await _movieRepository
+                .FindByIdAsync(id);
 
             if (dbMovie == null)
             {
@@ -206,8 +209,8 @@ namespace CinemaApp.Services.Core
 
             try
             {
-                dbMovie.IsDeleted = true;
-                await _context.SaveChangesAsync();
+                _movieRepository.SoftDelete(dbMovie);
+                await _movieRepository.SaveChangesAsync();
 
                 response.Status = MovieServiceResponseStatus.Success;
             }
@@ -229,7 +232,8 @@ namespace CinemaApp.Services.Core
                 ErrorMessages = new List<string?>()
             };
 
-            Movie? dbMovie = await _context.Movies.FindAsync(id);
+            Movie? dbMovie = await _movieRepository
+                .FindByIdAsync(id);
 
             if (dbMovie == null)
             {
@@ -246,8 +250,8 @@ namespace CinemaApp.Services.Core
             {
                 try
                 {
-                    _context.Movies.Remove(dbMovie);
-                    await _context.SaveChangesAsync();
+                    _movieRepository.Remove(dbMovie);
+                    await _movieRepository.SaveChangesAsync();
 
                     response.Status = MovieServiceResponseStatus.Success;
                 }
