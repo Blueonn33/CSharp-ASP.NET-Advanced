@@ -15,10 +15,12 @@ namespace CinemaApp.Web.Controllers
     public class MovieController : BaseController
     {
         private readonly IMovieService _movieService;
+        private readonly IWatchlistService _watchlistService;
 
-        public MovieController(IMovieService movieService)
+        public MovieController(IMovieService movieService, IWatchlistService watchlistService)
         {
             _movieService = movieService;
+            _watchlistService = watchlistService;
         }
 
         [HttpGet]
@@ -38,11 +40,20 @@ namespace CinemaApp.Web.Controllers
                     ImageUrl = m.ImageUrl ?? DefaultImageUrl
                 });
 
+            if (IsUserAuthenticated())
+            {
+                foreach (var movie in allMoviesViewModel)
+                {
+                    movie.IsInUserWatchlist =
+                        await _watchlistService.IsMovieInUserWatchlistAsync(GetUserId()!, Guid.Parse(movie.Id));
+                }
+            }
+
             return View(allMoviesViewModel);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
             return View();
         }
