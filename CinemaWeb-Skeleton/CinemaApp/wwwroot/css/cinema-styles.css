@@ -42,3 +42,41 @@
 .navbar {
     background-color: #1e1e1e;
 }
+
+.error-page {
+    max-width: 680px;
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.96), rgba(55, 55, 55, 0.96));
+    border: 1px solid rgba(255, 193, 7, 0.35);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.error-icon {
+    color: #ffc107;
+    font-size: 3rem;
+}
+
+.error-code {
+    margin: 0.5rem 0 0;
+    color: #ffc107;
+    font-size: clamp(4rem, 12vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+}
+
+.error-title {
+    margin-top: 1rem;
+    color: white;
+}
+
+.error-message,
+.error-request-id {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.error-home-link {
+    margin-top: 1rem;
+    font-weight: 700;
+}

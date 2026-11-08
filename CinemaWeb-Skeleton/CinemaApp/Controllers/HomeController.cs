@@ -31,8 +31,17 @@ namespace CinemaApp.Web.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode)
         {
+            int effectiveStatusCode = statusCode ?? HttpContext.Response.StatusCode;
+            if (effectiveStatusCode < 400)
+            {
+                effectiveStatusCode = StatusCodes.Status500InternalServerError;
+            }
+
+            HttpContext.Response.StatusCode = effectiveStatusCode;
+            ViewData["StatusCode"] = effectiveStatusCode;
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
