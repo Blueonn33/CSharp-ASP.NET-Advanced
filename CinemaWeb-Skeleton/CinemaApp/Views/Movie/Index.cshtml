@@ -42,13 +42,26 @@
 
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
-                        <button class="btn btn-outline-warning btn-sm rounded-pill px-3 add-to-watchlist-btn"
-                                data-movie-id="@movie.Id">
-                            <i class="bi bi-bookmark-heart"></i> Add to Watchlist
-                        </button>
+                        @if (movie.IsInUserWatchlist)
+                        {
+                            <form asp-controller="Watchlist" asp-action="Remove" asp-route-returnUrl="@Url.Action("Index", "Movie")" method="post" class="d-inline">
+                                <input type="hidden" name="movieId" value="@movie.Id" />
+                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                    <i class="bi bi-trash"></i> Remove from Watchlist
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Watchlist" asp-action="Add" method="post" class="d-inline">
+                                <input type="hidden" name="movieId" value="@movie.Id" />
+                                <button class="btn btn-outline-warning btn-sm rounded-pill px-3 add-to-watchlist-btn"
+                                        data-movie-id="@movie.Id">
+                                    <i class="bi bi-bookmark-heart"></i> Add to Watchlist
+                                </button>
+                            </form>
+                        }
                     }
-
-
                 </div>
             </div>
         }
