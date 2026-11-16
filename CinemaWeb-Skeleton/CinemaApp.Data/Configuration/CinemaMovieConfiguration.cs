@@ -12,6 +12,10 @@ namespace CinemaApp.Data.Configuration
                 .HasQueryFilter(cm => cm.IsDeleted == false &&
                                       cm.Movie.IsDeleted == false &&
                                       cm.Cinema.IsDeleted == false);
+
+            builder
+                .HasIndex(cm => new { cm.CinemaId, cm.MovieId })
+                .IsUnique();
         }
     }
 }
