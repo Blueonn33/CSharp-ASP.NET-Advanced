@@ -50,5 +50,7 @@ namespace CinemaApp.Data.Models
         {
             get; set;
         }
+
+        public virtual ICollection<CinemaMovie> CinemaProjections { get; set; } = new HashSet<CinemaMovie>();
     }
 }
