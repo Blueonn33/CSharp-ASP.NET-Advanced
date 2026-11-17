@@ -10,4 +10,8 @@
     <ProjectReference Include="..\CinemaApp.GCommon\CinemaApp.GCommon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cinema\Request\" />
+  </ItemGroup>
+
 </Project>
