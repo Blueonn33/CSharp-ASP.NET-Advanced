@@ -5,6 +5,7 @@ using System.Security.Claims;
 namespace CinemaApp.Web.Controllers
 {
     [Authorize]
+    [AutoValidateAntiforgeryToken]
     public abstract class BaseController : Controller
     {
         protected string? GetUserId()
