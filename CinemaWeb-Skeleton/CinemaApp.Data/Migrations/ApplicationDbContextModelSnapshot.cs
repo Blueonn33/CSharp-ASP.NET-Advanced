@@ -102,7 +102,7 @@ namespace CinemaApp.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.HasIndex("CinemaId", "MovieId")
+                    b.HasIndex("CinemaId", "MovieId", "Showtime")
                         .IsUnique();
 
                     b.ToTable("Projections");
@@ -719,7 +719,7 @@ namespace CinemaApp.Data.Migrations
             modelBuilder.Entity("CinemaApp.Data.Models.CinemaMovie", b =>
                 {
                     b.HasOne("CinemaApp.Data.Models.Cinema", "Cinema")
-                        .WithMany()
+                        .WithMany("CinemaProjections")
                         .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -837,6 +837,11 @@ namespace CinemaApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CinemaApp.Data.Models.Cinema", b =>
+                {
+                    b.Navigation("CinemaProjections");
                 });
 
             modelBuilder.Entity("CinemaApp.Data.Models.CinemaMovie", b =>
