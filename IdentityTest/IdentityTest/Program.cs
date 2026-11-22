@@ -23,6 +23,13 @@ namespace IdentityTest
 
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAuthentication()
+                .AddFacebook(options =>
+                {
+                    options.AppId = builder.Configuration["Authentication:Facebook:AppId"] ?? throw new InvalidOperationException("Facebook AppId not found");
+                    options.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"] ?? throw new InvalidOperationException("Facebook AppSecret not found");
+                });
+
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("HasEmployeeNumber", policy => policy.RequireClaim("EmployeeNumber"));
@@ -50,10 +57,17 @@ namespace IdentityTest
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+                .WithStaticAssets();
+
             app.MapRazorPages()
                .WithStaticAssets();
 
