@@ -16,12 +16,13 @@
             <div class="modal-footer bg-white">
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <button id="add-to-watchlist-btn"
-                            class="btn btn-warning"
-                            data-movie-id="">
-                        <i class="fas fa-bookmark"></i> Add to Watchlist
-                    </button>
-
+                    <form asp-area="" asp-controller="Watchlist" asp-action="Add" method="post">
+                        <button id="add-to-watchlist-btn"
+                                class="btn btn-warning"
+                                data-movie-id="">
+                            <i class="fas fa-bookmark"></i> Add to Watchlist
+                        </button>
+                    </form>
                 }
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
