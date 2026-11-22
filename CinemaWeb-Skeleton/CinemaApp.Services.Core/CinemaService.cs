@@ -32,6 +32,22 @@ namespace CinemaApp.Services.Core
             return responseData;
         }
 
+        public async Task<string?> GetCinemaNameByIdAsync(Guid cinemaId)
+        {
+            string? cinemaName = null;
+
+            Cinema? dbCinema = await _cinemaRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(c => c.Id == cinemaId);
+
+            if (dbCinema != null)
+            {
+                cinemaName = dbCinema.Name;
+            }
+
+            return cinemaName;
+        }
+
         public async Task<CinemaProgramResponseModel?> GetCinemaProgramByIdAsync(Guid cinemaId)
         {
             CinemaProgramResponseModel? responseData = null;

@@ -1,6 +1,6 @@
 ﻿namespace CinemaApp.Web.ViewModels.CinemaMovie
 {
-    public class CinemaProgramViewModel
+    public class CinemaMovieViewModel
     {
         public Guid Id { get; set; }
 

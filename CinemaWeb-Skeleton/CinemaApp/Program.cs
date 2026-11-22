@@ -27,6 +27,7 @@ namespace CinemaApp.Web
             builder.Services.AddScoped<IWatchlistService, WatchlistService>();
             builder.Services.AddScoped<ICinemaService, CinemaService>();
             builder.Services.AddScoped<ITicketService, TicketService>();
+            builder.Services.AddScoped<IProjectionService, ProjectionService>();
 
             // Setup of example CORS policy
             builder.Services.AddCors(options =>

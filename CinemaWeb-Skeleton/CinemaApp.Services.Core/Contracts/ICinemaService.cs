@@ -7,5 +7,7 @@ namespace CinemaApp.Services.Core.Contracts
         Task<IEnumerable<GetAllCinemasResponseModel>> GetAllCinemasAsync();
 
         Task<CinemaProgramResponseModel?> GetCinemaProgramByIdAsync(Guid cinemaId);
+
+        Task<string?> GetCinemaNameByIdAsync(Guid cinemaId);
     }
 }
