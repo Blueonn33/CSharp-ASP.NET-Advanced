@@ -1,7 +1,6 @@
 using IdentityTest.Data;
 using IdentityTest.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace IdentityTest
 {
@@ -23,6 +22,13 @@ namespace IdentityTest
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("HasEmployeeNumber", policy => policy.RequireClaim("EmployeeNumber"));
+
+                options.AddPolicy("IsSpecialEmployee", policy => policy.RequireClaim("EmployeeNumber", "1717", "1117"));
+            });
 
             var app = builder.Build();
 

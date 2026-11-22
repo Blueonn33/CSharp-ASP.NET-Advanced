@@ -125,6 +125,12 @@ public class IndexModel : PageModel
             }
         }
 
+        if (Input.FullName != user.FullName)
+        {
+            user.FullName = Input.FullName;
+            var updateResult = await _userManager.UpdateAsync(user);
+        }
+
         await _signInManager.RefreshSignInAsync(user);
         StatusMessage = "Your profile has been updated";
         return RedirectToPage();
