@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Cinema\Request\" />
     <Folder Include="Projection\Request\" />
-    <Folder Include="Ticket\Request\" />
   </ItemGroup>
 
 </Project>

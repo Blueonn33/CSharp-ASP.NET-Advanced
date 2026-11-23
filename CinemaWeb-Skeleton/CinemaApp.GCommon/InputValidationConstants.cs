@@ -92,5 +92,10 @@
         }
 
         public const string GeneralErrorMessage = "An unexpected error occured. Please try again later";
+
+        public static class Ticket
+        {
+            public const int MinimumPurchaseQuantity = 1;
+        }
     }
 }

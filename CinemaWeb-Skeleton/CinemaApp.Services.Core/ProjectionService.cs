@@ -1,4 +1,5 @@
-﻿using CinemaApp.Data.Repository.Contracts;
+﻿using CinemaApp.Data.Models;
+using CinemaApp.Data.Repository.Contracts;
 using CinemaApp.Services.Core.Contracts;
 using CinemaApp.Services.Core.Data.Projection.Response;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,20 @@ namespace CinemaApp.Services.Core
                 .ToArrayAsync();
 
             return responseData;
+        }
+
+        public async Task<int> GetProjectionAvailabilityAsync(Guid projectionId)
+        {
+            CinemaMovie? dbProjection = await _cinemaMovieRepository
+                .AllAsNoTracking()
+                .SingleOrDefaultAsync(cm => cm.Id == projectionId);
+
+            if (dbProjection == null)
+            {
+                return 0;
+            }
+
+            return dbProjection.AvailableTickets;
         }
     }
 }
